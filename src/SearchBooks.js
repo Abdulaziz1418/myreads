@@ -10,6 +10,16 @@ class SearchBooks extends Component {
           query: query.trim()
         }))
       }
+  
+    getBookShelf = (bookSearch) => {
+        let bookShelfName = 'none'
+        this.props.booksList.forEach( book => {
+            if (book.id===bookSearch.id) {
+                bookShelfName=book.shelf
+            }
+        });
+        return bookShelfName;
+    }
     render(){
         const { booksSearch , onSearchOfbooks, onUpdateShelf} = this.props
 
@@ -43,15 +53,14 @@ class SearchBooks extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                {booksSearch !== [] 
-                ?(
-                  booksSearch.map((books) => (
+                {booksSearch.length >= 0
+                 ? (booksSearch.map((books) => (
                    <li key={books.id}>
                         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${books.imageLinks.smallThumbnail})` }}></div>
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${books.imageLinks !== undefined ? books.imageLinks.smallThumbnail : books.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(event) => onUpdateShelf(books,event.target.value.toString())} value="none">
+                              <select onChange={(event) => onUpdateShelf(books,event.target.value.toString())} value={this.getBookShelf(books)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -65,7 +74,8 @@ class SearchBooks extends Component {
                         </div>
                       </li>
                   )))
-                  :(<h1>No results</h1>)
+                  :(<h1>No Results</h1>)
+                 
                 }
                 </ol>
             </div>

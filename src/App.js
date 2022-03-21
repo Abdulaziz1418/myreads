@@ -4,6 +4,7 @@ import './App.css'
 import BookList from './BookList'
 import { Route, Routes, Link } from 'react-router-dom'
 import SearchBooks from './SearchBooks'
+
 class BooksApp extends Component {
   state = {
     /**
@@ -22,7 +23,6 @@ class BooksApp extends Component {
       this.setState(() => ({
           books
       }))
-      console.log('books', books)
     })
   }
   searchOfbooks(event){
@@ -39,10 +39,7 @@ class BooksApp extends Component {
           this.setState(() => ({
             booksSearch
           }))
-          
-    
-        console.log('filter', booksSearch)
-      })
+        })
     }
 
   }
@@ -61,6 +58,7 @@ class BooksApp extends Component {
     }
   };
   render() {
+    
     return (
       <div className="app">
  
@@ -77,6 +75,7 @@ class BooksApp extends Component {
             booksSearch={this.state.booksSearch}
             onSearchOfbooks={(booksSearch) => this.searchOfbooks(booksSearch)}
             onUpdateShelf={this.updateShelf}
+            booksList={this.state.books}
                />
         } />
         </Routes>
@@ -90,7 +89,9 @@ class BooksApp extends Component {
           </div>
         
     )
+      }
+      
   }
-}
+
 
 export default BooksApp
