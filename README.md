@@ -9,5 +9,6 @@ This is project for showing books with their shelf wich are (Currently Reading, 
 # Run Project
 
 - Clone The Project
+- npm install
 - In Terminal add npm start then click enter
 
